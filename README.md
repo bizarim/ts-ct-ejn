@@ -1,3 +1,5 @@
 # 코딩 테스트
-## [algorithm](algorithm/README.md)
-## [product](product/README.md)
+## algorithm
+[link](algorithm/README.md)
+## product
+[link](product/README.md)
