@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Router } from 'react-router';
+import { createBrowserHistory } from 'history';
+import { AppBody, AppHeader, AppFooter, ErrorWrapper } from './components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const history = createBrowserHistory();
+
+export class App extends Component {
+    public state = {};
+
+    public render() {
+        return (
+            <Router history={history}>
+                <ErrorWrapper>
+                    <AppHeader />
+                    <AppBody />
+                    <AppFooter />
+                </ErrorWrapper>
+            </Router>
+        );
+    }
 }
-
-export default App;

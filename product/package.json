@@ -38,13 +38,14 @@
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.5",
-    "enzyme": "^3.11.0"
+    "enzyme": "^3.11.0",
+    "json-server": "^0.16.1"
   },
   "scripts": {
     "build:css": "node-sass src/index.scss src/index.css",
     "watch:css": "node-sass --watch src/index.scss src/index.css",
-    "mockAPI": "",
-    "start-mock": "npm-run-all -p watch:css lint mockAPI start-js",
+    "mockAPI": "node mocks/server.js",
+    "start:mock": "npm-run-all -p watch:css lint mockAPI start-js",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch:css lint start-js",
     "build": "react-scripts build",
