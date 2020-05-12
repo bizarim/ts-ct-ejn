@@ -1,0 +1,26 @@
+{
+  "name": "ejn-test-algorithm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/node": "^13.13.5",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.2.1",
+    "ts-jest": "^25.5.1",
+    "tslint": "^6.1.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "tslint -p .",
+    "build": "npm run lint && tsc",
+    "start": "ts-node ./src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
