@@ -31,7 +31,7 @@ export class TodoSummaryList extends React.Component<Props, State> {
                 </div>
                 <div className="search-container__body">
                     <div className="search-container__body__items">
-                        {list.map(a => <TodoSummary item={a} />)}
+                        {list.map((data, index) => <TodoSummary key={index} item={data} />)}
                     </div>
                 </div>
             </div>

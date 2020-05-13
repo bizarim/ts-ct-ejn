@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { ePriority } from '../../../constants';
 import {
     TodoTextInputElement,
@@ -6,17 +8,26 @@ import {
     TodoSelectElement,
     TodoDateInputElement,
 } from '../../../components';
+import { RootState } from '../../../store/rootReducer';
+import { todoAddReq, TodoAction } from '../../../store/modules/todo/actions';
+import { TodoData, TodoAddReqPayload } from '../../../store/modules/todo/types';
 
 
-interface Props {
+interface ReduxProps {
 
 }
+interface DispatchProps {
+    todoAddReq: typeof todoAddReq;
+}
+type Props = DispatchProps & ReduxProps;
 interface State {
-
+    todo: TodoData;
 }
 
-export class TodoAdd extends React.Component<Props, State> {
-    public state = {};
+class TodoAddComponent extends React.Component<Props, State> {
+    public state = {
+        todo: {  } as TodoData,
+    };
 
     public render() {
         return (
@@ -40,3 +51,14 @@ export class TodoAdd extends React.Component<Props, State> {
 
     }
 }
+
+
+const mapStateProps = (state: RootState): ReduxProps => ({
+
+});
+
+const mapDispatchProps = (dispatch: Dispatch<TodoAction>) => ({
+    todoAddReq: (payload: TodoAddReqPayload) => dispatch(todoAddReq(payload)),
+});
+
+export const TodoAdd = connect(mapStateProps, mapDispatchProps)(TodoAddComponent);

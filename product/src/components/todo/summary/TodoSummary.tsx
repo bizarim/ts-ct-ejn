@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-export type TodoData = {
-    id: number;
-    title: string,
-};
+import { TodoData } from '../../../store/modules/todo/types';
 
 interface Props {
     item: TodoData;

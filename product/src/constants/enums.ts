@@ -3,7 +3,7 @@
  * : 마이크로 서비스라면 사용
  */
 export enum ServiceType {
-    form = 'form',
+    todo = 'todo',
 }
 
 /**

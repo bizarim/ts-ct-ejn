@@ -1,22 +1,37 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { TodoSummaryList } from '../../components';
+import { TodoAction, todoGetListReq } from '../../store/modules/todo/actions';
+import { RootState } from '../../store/rootReducer';
+import { TodoData, TodoGetListReqPayload } from '../../store/modules/todo/types';
+import { getTodos } from '../../store/modules/todo/getters';
 
-
-interface Props {
-
+interface ReduxProps {
+    datas: TodoData[];
 }
-interface State {
-
+interface DispatchProps {
+    todoGetListReq: typeof todoGetListReq;
 }
+type Props = DispatchProps & ReduxProps & RouteComponentProps;
 
-export class TodoSearchPage extends React.Component<Props, State> {
-    public state = {};
+class TodoSearchComponent extends React.Component<Props> {
 
     public render() {
         return (<TodoSummaryList />);
     }
 }
 
+const mapStateProps = (state: RootState): ReduxProps => ({
+    datas: getTodos(state),
+});
+
+const mapDispatchProps = (dispatch: Dispatch<TodoAction>) => ({
+    todoGetListReq: (payload: TodoGetListReqPayload) => dispatch(todoGetListReq(payload)),
+});
+
+export const TodoSearchPage = withRouter(connect(mapStateProps, mapDispatchProps)(TodoSearchComponent));
 
 // todo
 // 스크롤 처리

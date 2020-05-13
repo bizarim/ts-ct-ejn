@@ -28,7 +28,7 @@ declare global {
 window.env = window.env || defaultConfig;
 AppBase.config = { ...window.env };
 
-export const form = () => AppBase.config.apis[ServiceType.form];
+export const todo = () => AppBase.config.apis[ServiceType.todo];
 export const withCredentials = () => AppBase.config.withCredentials;
 export const basicToken = () => AppBase.config.basicToken;
 export const getBaseUrl = (type: ServiceType) => AppBase.config.apis[type];

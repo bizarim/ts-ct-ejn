@@ -1,6 +1,6 @@
 import React from 'react';
-import { TodoData } from '../summary/TodoSummary';
 import { TodoDetailElement } from '../elements/TodoDetailElement';
+import { TodoData } from '../../../store/modules/todo/types';
 
 interface Props {
     item: TodoData;

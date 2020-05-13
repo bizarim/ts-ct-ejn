@@ -1,22 +1,36 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { ePriority } from '../../../constants';
 import {
     TodoTextInputElement,
     TodoTextareaElement,
     TodoSelectElement,
     TodoDateInputElement,
-    TodoData,
 } from '../../../components';
+import { TodoData, TodoModifyReqPayload } from '../../../store/modules/todo/types';
+import { TodoAction, todoModifyReq } from '../../../store/modules/todo/actions';
+import { RootState } from '../../../store/rootReducer';
 
-interface Props {
+
+interface ReduxProps {
+
+}
+interface DispatchProps {
+    todoModifyReq: typeof todoModifyReq;
+}
+interface TodoModifyProps {
     item: TodoData;
     onHandle(): void;
 }
+
+type Props = DispatchProps & ReduxProps & TodoModifyProps;
+
 interface State {
 
 }
 
-export class TodoModify extends React.Component<Props, State> {
+class TodoModifyComponent extends React.Component<Props, State> {
     public state = {};
 
     public render() {
@@ -43,3 +57,14 @@ export class TodoModify extends React.Component<Props, State> {
         onHandle();
     }
 }
+
+
+const mapStateProps = (state: RootState): ReduxProps => ({
+
+});
+
+const mapDispatchProps = (dispatch: Dispatch<TodoAction>) => ({
+    todoModifyReq: (payload: TodoModifyReqPayload) => dispatch(todoModifyReq(payload)),
+});
+
+export const TodoModify = connect(mapStateProps, mapDispatchProps)(TodoModifyComponent);
