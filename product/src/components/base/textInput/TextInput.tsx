@@ -1,10 +1,9 @@
 import React from 'react';
 
 export interface TextInputProps {
-    id: number;
     text: string;
     placeHolder: string;
-    onHandle(id: number, checked: boolean, text: string): void;
+    onHandle(text: string): void;
 }
 interface State {
     value: string;
@@ -38,10 +37,10 @@ export class TextInput extends React.Component<TextInputProps, State> {
 
     private onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        const { id, onHandle } = this.props;
+        const { onHandle } = this.props;
         this.setState({ value: value });
 
         if (onHandle)
-            onHandle(id, false, value);
+            onHandle(value);
     };
 }

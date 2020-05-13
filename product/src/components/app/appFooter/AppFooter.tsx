@@ -13,9 +13,7 @@ export class AppFooter extends React.Component<Props, State> {
     public render() {
         return (
             <div className="footer-container">
-                <div className="footer-container-row">
-                    Footer
-                    </div>
+                <div className="footer-container-row">Footer</div>
             </div>
         );
     }

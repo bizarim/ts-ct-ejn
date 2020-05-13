@@ -44,7 +44,7 @@
   "scripts": {
     "build:css": "node-sass src/index.scss src/index.css",
     "watch:css": "node-sass --watch src/index.scss src/index.css",
-    "mockAPI": "node mocks/server.js",
+    "mockAPI": "json-server --watch mocks/db.json --port 8080",
     "start:mock": "npm-run-all -p watch:css lint mockAPI start-js",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch:css lint start-js",

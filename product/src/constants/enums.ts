@@ -19,3 +19,9 @@ export enum eErrorCode {
     UnknownError = 520,
     ApiError = 600,
 }
+
+export enum ePriority {
+    high,
+    middle,
+    low,
+}

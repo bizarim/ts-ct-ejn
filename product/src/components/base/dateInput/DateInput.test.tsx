@@ -1,42 +1,40 @@
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import * as React from 'react';
-import { TextInputProps, TextInput } from './TextInput';
+import { DateInputProps, DateInput } from './DateInput';
 
 configure({ adapter: new Adapter() });
 
-const defaultProps: TextInputProps = {
+const defaultProps: DateInputProps = {
     text: 'test',
-    placeHolder: 'input',
     onHandle: jest.fn(),
 };
 
-const setup = (props: Partial<TextInputProps> = {}) =>
-    shallow(<TextInput {...{ ...defaultProps, ...props }} />);
+const setup = (props: Partial<DateInputProps> = {}) =>
+    shallow(<DateInput {...{ ...defaultProps, ...props }} />);
 
-describe('TextInput', () => {
+describe('DateInput', () => {
     it('should render', () => {
         const wrapper = setup();
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should have correct className form-control', () => {
+    it('should have correct className date-input', () => {
         const wrapper = setup();
-        expect(wrapper.hasClass('form-control')).toBeTruthy();
+        expect(wrapper.hasClass('date-input')).toBeTruthy();
         // todo
         // find children
     });
 
-    it('should selected textInput', () => {
+    it('should selected DateInput', () => {
         const onChange = jest.fn();
-        const props: TextInputProps = {
+        const props: DateInputProps = {
             text: 'XXXXX',
-            placeHolder: 'input',
             onHandle: onChange,
         };
         const wrapper = setup(props);
-        const textInput = wrapper.find('input');
-        textInput.simulate('change', { target: { value : 'YYY'} });
+        const dateInput = wrapper.find('input');
+        dateInput.simulate('change', { target: { value : 'YYY'} });
         expect(onChange).toHaveBeenCalledWith('YYY');
     });
 

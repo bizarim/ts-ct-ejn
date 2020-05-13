@@ -1,0 +1,25 @@
+.date-input {
+    
+    input {
+        height: calc(2.35em);
+        border: 1px solid var(--sub-2-border-color);
+        padding: .6875rem .75rem;
+        border-radius: 4px;
+        box-shadow: none;
+        font-size: 1rem;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    input[type="date"] {
+        background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 93% 50% no-repeat;
+    }
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+}

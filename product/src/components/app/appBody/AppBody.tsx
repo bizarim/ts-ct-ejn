@@ -1,5 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import { TodoSearchPage } from '../../../pages/todo/TodoSearchPage';
+import { TodoDetailsPage } from '../../../pages/todo/TodoDetailsPage';
+import { TodoAddPage } from '../../../pages/todo/TodoAddPage';
 
 interface Props {
 
@@ -13,7 +16,10 @@ export class AppBody extends React.Component<Props, State> {
         return (
             <div>
                 <Switch>
-                    {/* <Route path="/" component={} /> */}
+                    <Route exact={true} path="/" component={TodoSearchPage} />
+                    <Route exact={true} path="/todos" component={TodoSearchPage} />
+                    <Route exact={true} path="/add" component={TodoAddPage} />
+                    <Route exact={true} path="/todos/:id" component={TodoDetailsPage} />
                 </Switch>
             </div>
         );
