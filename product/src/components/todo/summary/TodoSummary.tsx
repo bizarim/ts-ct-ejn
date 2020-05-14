@@ -19,8 +19,6 @@ export class TodoSummary extends React.Component<Props, State> {
 
     public render() {
         const { item } = this.props;
-
-
         return (
             <div key={item.id} className="item">
                 <div className="item__wrap">

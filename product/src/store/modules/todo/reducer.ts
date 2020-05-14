@@ -40,17 +40,27 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
                 error: action.payload,
             };
         case TODO_GET_LIST_REQ:
-            return state;
-        case TODO_GET_LIST_RES:
-            if (0 < action.payload.datas.length) {
-                if (!state.initList)state.initList = true;
-                const newLastId = action.payload.datas.sort((a, b) => a.id - b.id)[0].id;
-                state.lastId = newLastId < state.lastId || state.datas.length <= 0 ? newLastId : state.lastId;
-                state.datas = state.datas.concat(action.payload.datas);
-            }
-            state.canLoading = true;
             return {
                 ...state,
+                canLoading: false,
+            };
+        case TODO_GET_LIST_RES:
+            let newLastId = 0;
+
+            if (0 < action.payload.datas.length) {
+                if (!state.initList) state.initList = true;
+                newLastId = action.payload.datas.sort((a, b) => a.id - b.id)[0].id;
+                if (newLastId !== state.lastId) {
+                    state.lastId = newLastId < state.lastId || state.datas.length <= 0 ? newLastId : state.lastId;
+                    state.datas = state.datas.concat(action.payload.datas);
+                }
+            }
+
+            return {
+                ...state,
+                datas: [...state.datas],
+                lastId: newLastId,
+                canLoading: true,
                 error: undefined,
             };
         case TODO_ADD_ERR:
@@ -64,6 +74,7 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
             state.datas.push(action.payload);
             return {
                 ...state,
+                datas: [...state.datas],
                 error: undefined,
             };
         case TODO_MODIFY_ERR:
@@ -78,9 +89,10 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
         case TODO_MODIFY_RES:
             const list = state.datas.filter(o => o.id !== action.payload.id);
             list.push(action.payload);
-            state.datas = list;
+
             return {
                 ...state,
+                datas: [...list],
                 error: undefined,
             };
         default:

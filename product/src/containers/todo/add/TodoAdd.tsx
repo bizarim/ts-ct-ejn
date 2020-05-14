@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'history';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { ePriority } from '../../../constants';
@@ -21,9 +22,13 @@ interface ReduxProps {
 interface DispatchProps {
     todoAddReq: typeof todoAddReq;
 }
-type Props = DispatchProps & ReduxProps;
+interface HistoryProps {
+    history: History;
+}
+type Props = DispatchProps & ReduxProps & HistoryProps;
 interface State {
     todo: TodoData;
+    isAdded: boolean;
 }
 // todo
 const title = '제목';
@@ -44,6 +49,7 @@ class TodoAddComponent extends React.Component<Props, State> {
             completed: false,
             priority: '',
         },
+        isAdded: false,
     };
 
     public render() {
@@ -53,12 +59,13 @@ class TodoAddComponent extends React.Component<Props, State> {
                 <div className="modify__wrap">
                     <TodoTextInputElement label={title} value={todo.title} placeHolder={titlePlaceHolder} onHandle={this.onChangedTitle} />
                     <TodoTextareaElement label={contents} value={todo.contents} placeHolder={contentsPlacHolder} onHandle={this.onChangedContents} />
-                    <TodoSelectElement label={priority} value={ePriority[todo.priority as ePriority]}
+                    <TodoSelectElement label={priority} value={todo.priority}
                         options={[(ePriority[ePriority.high]).toString(), (ePriority[ePriority.middle]).toString(), (ePriority[ePriority.low]).toString()]}
                         onHandle={this.onChangedPriority} />
                     <TodoDateInputElement label={lastDate} value={todo.LastDate} onHandle={this.onChangedLastDate} />
 
                     <div className="modify__wrap__foot">
+                        <button className="btn btn-primary" onClick={this.onBack}> back </button>
                         <button className="btn btn-primary" onClick={this.onClicked}> add </button>
                     </div>
 
@@ -103,6 +110,12 @@ class TodoAddComponent extends React.Component<Props, State> {
     private onClicked = () => {
         const { todoAddReq } = this.props;
         const { todo } = this.state;
+
+        if (todo.title === '' || todo.contents === '' || todo.priority === '') {
+            alert('빈칸을 채워주세요.');
+            return;
+        }
+
         todoAddReq({
             title: todo.title,
             contents: todo.contents,
@@ -111,6 +124,13 @@ class TodoAddComponent extends React.Component<Props, State> {
             priority: todo.priority,
             regDate: todo.regDate,
         });
+
+        this.setState({ ...this.state, isAdded: true });
+        this.props.history.push('/todos');
+    }
+
+    private onBack = () => {
+        this.props.history.push('/todos');
     }
 }
 

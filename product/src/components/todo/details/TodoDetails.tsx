@@ -1,12 +1,18 @@
 import React from 'react';
+import { History } from 'history';
 import { TodoDetailElement } from '../elements/TodoDetailElement';
 import { TodoData } from '../../../store/modules/todo/types';
 import { ePriority } from '../../../constants';
 
-interface Props {
+interface DetailsProps {
     item: TodoData;
     onHandle(): void;
 }
+
+interface HistoryProps {
+    history: History;
+}
+type Props = DetailsProps & HistoryProps;
 interface State {
 
 }
@@ -33,6 +39,7 @@ export class TodoDetails extends React.Component<Props, State> {
                     <TodoDetailElement label={lastDate} contents={item.LastDate} />
                     <TodoDetailElement label={complete} contents={`${item.completed}`} />
                     <div className="details__wrap__foot">
+                        <button className="btn btn-primary" onClick={this.onBack}> back </button>
                         <button className="btn btn-primary" onClick={this.onModify}> modify </button>
                     </div>
 
@@ -44,5 +51,9 @@ export class TodoDetails extends React.Component<Props, State> {
     private onModify = () => {
         const { onHandle } = this.props;
         onHandle();
+    }
+
+    private onBack = () => {
+        this.props.history.push('/todos');
     }
 }

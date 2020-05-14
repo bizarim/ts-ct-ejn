@@ -31,13 +31,13 @@ class TodoDetailsComponent extends React.Component<Props, State> {
     };
 
     public render() {
-        const { datas, match } = this.props;
+        const { datas, match, history } = this.props;
         const data = datas.find(o => o.id === parseInt(match.params.id));
         if (undefined === data) return null;
         const { isModify } = this.state;
         return isModify
             ? (<TodoModify item={data} onHandle={this.onModify} />)
-            : (<TodoDetails item={data} onHandle={this.onModify} />);
+            : (<TodoDetails history={history} item={data} onHandle={this.onModify} />);
     }
 
     private onModify = () => {

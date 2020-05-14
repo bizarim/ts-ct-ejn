@@ -17,7 +17,8 @@ type Props = DispatchProps & ReduxProps & RouteComponentProps;
 class TodoAddComponent extends React.Component<Props> {
 
     public render() {
-        return (<TodoAdd />);
+        const { history } = this.props;
+        return (<TodoAdd history={history} />);
     }
 }
 

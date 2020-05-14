@@ -22,6 +22,7 @@ type Props = DispatchProps & ReduxProps & RouteComponentProps;
 
 class TodoSearchComponent extends React.Component<Props> {
 
+    public confrimInterval: any;
     public componentDidMount() {
         const { todoGetListReq, lastId, initList } = this.props;
         if (!initList) {
@@ -31,10 +32,12 @@ class TodoSearchComponent extends React.Component<Props> {
     }
 
     public componentWillUnmount() {
+        clearInterval(this.confrimInterval);
         window.removeEventListener('scroll', this.onHandleScroll);
     }
     public render() {
         const { datas } = this.props;
+
         return (<TodoSummaryList datas={datas} />);
     }
 
@@ -48,12 +51,14 @@ class TodoSearchComponent extends React.Component<Props> {
         const scrollTop = (document.documentElement && document.documentElement.scrollTop)
             || document.body.scrollTop;
 
-        if (scrollHeight - innerHeight - scrollTop < 40) {
+        if (scrollHeight - innerHeight - scrollTop < 100) {
             if (canLoading) {
                 todoGetListReq({ lastId: lastId });
             }
         }
+
     };
+
 }
 
 const mapStateProps = (state: RootState): ReduxProps => ({
