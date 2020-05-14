@@ -1,29 +1,20 @@
 import React from 'react';
 import { TodoSummary } from '../summary/TodoSummary';
+import { TodoData } from '../../../store/modules/todo/types';
 
 interface Props {
-
+    datas: TodoData[];
 }
 interface State {
 
 }
 
-const list = [
-    { id: 1, title: '1' },
-    { id: 2, title: '2' },
-    { id: 3, title: '3' },
-    { id: 4, title: '4' },
-    { id: 5, title: '5' },
-    { id: 6, title: '6' },
-    { id: 7, title: '7' },
-    { id: 8, title: '8' },
-    { id: 9, title: '9' },
-];
 
 export class TodoSummaryList extends React.Component<Props, State> {
     public state = {};
 
     public render() {
+        const { datas } = this.props;
         return (
             <div className="search-container">
                 <div className="search-container__title">
@@ -31,7 +22,7 @@ export class TodoSummaryList extends React.Component<Props, State> {
                 </div>
                 <div className="search-container__body">
                     <div className="search-container__body__items">
-                        {list.map((data, index) => <TodoSummary key={index} item={data} />)}
+                        {datas.sort((a, b) => (a.id > b.id ? -1 : 1)).map((data, index) => <TodoSummary key={data.id} item={data} />)}
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ export enum eErrorCode {
 }
 
 export enum ePriority {
-    high,
-    middle,
-    low,
+    high = 'high',
+    middle = 'middle',
+    low = 'low',
 }

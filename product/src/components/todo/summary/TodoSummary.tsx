@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TodoData } from '../../../store/modules/todo/types';
+import { getDDay } from '../../utill';
 
 interface Props {
     item: TodoData;
@@ -9,30 +10,36 @@ interface State {
 
 }
 
+// todo
+const complete = '완료';
+const ing = '진행중';
+
 export class TodoSummary extends React.Component<Props, State> {
     public state = {};
 
     public render() {
         const { item } = this.props;
+
+
         return (
             <div key={item.id} className="item">
                 <div className="item__wrap">
                     <Link to={`/todos/${item.id}`}>
                         <div className="item__wrap__title">
-                            <span>{'테스트 입니다.테스트 입니다.테스트 입니다.'}</span>
+                            <span>{item.title}</span>
                         </div>
                         <div className="item__wrap__contents">
-                            <span>{'테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.테스트 입니다.'}</span>
+                            <span>{item.contents}</span>
                         </div>
                         <div className="item__wrap__body">
                             <div className="item__wrap__body__left">
-                                <span>{'우선순위: 높음'}</span>
+                                <span>{item.priority}</span>
                             </div>
                             <div className="item__wrap__body__left">
-                                <span>{'D-100'}</span>
+                                <span>{getDDay(item.LastDate)}</span>
                             </div>
                             <div className="item__wrap__body__left">
-                                <span>{'진행중'}</span>
+                                <span>{item.completed ? complete : ing}</span>
                             </div>
                         </div>
                     </Link>

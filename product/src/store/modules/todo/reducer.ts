@@ -14,21 +14,25 @@ import {
     TodoData,
 } from './types';
 import { TodoAction } from './actions';
-import { stat } from 'fs';
 
 export interface TodoState {
     datas: TodoData[];
+    lastId: number;
+    initList: boolean;
+    canLoading: boolean;
     error?: CommonErrorPayload;
 }
 
 
 export const initialState: TodoState = {
     datas: [],
+    lastId: -1,
+    initList: false,
+    canLoading: true,
 };
 
 export const todoReducer = (state = initialState, action: TodoAction): TodoState => {
-    // tslint:disable-next-line:no-console
-    console.log(state.datas);
+
     switch (action.type) {
         case TODO_GET_LIST_ERR:
             return {
@@ -36,11 +40,15 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
                 error: action.payload,
             };
         case TODO_GET_LIST_REQ:
-            return {
-                ...state,
-                error: undefined,
-            };
+            return state;
         case TODO_GET_LIST_RES:
+            if (0 < action.payload.datas.length) {
+                if (!state.initList)state.initList = true;
+                const newLastId = action.payload.datas.sort((a, b) => a.id - b.id)[0].id;
+                state.lastId = newLastId < state.lastId || state.datas.length <= 0 ? newLastId : state.lastId;
+                state.datas = state.datas.concat(action.payload.datas);
+            }
+            state.canLoading = true;
             return {
                 ...state,
                 error: undefined,
@@ -51,10 +59,9 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
                 error: action.payload,
             };
         case TODO_ADD_REQ:
-            return {
-                ...state,
-            };
+            return state;
         case TODO_ADD_RES:
+            state.datas.push(action.payload);
             return {
                 ...state,
                 error: undefined,
@@ -69,6 +76,9 @@ export const todoReducer = (state = initialState, action: TodoAction): TodoState
                 ...state,
             };
         case TODO_MODIFY_RES:
+            const list = state.datas.filter(o => o.id !== action.payload.id);
+            list.push(action.payload);
+            state.datas = list;
             return {
                 ...state,
                 error: undefined,

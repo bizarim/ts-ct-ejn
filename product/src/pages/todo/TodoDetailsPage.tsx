@@ -6,20 +6,24 @@ import { TodoModify } from '../../containers';
 import { TodoDetails } from '../../components';
 import { TodoAction } from '../../store/modules/todo/actions';
 import { RootState } from '../../store/rootReducer';
+import { TodoData } from '../../store/modules/todo/types';
+import { getTodos } from '../../store/modules/todo/getters';
 
 interface ReduxProps {
-
+    datas: TodoData[];
 }
 interface DispatchProps {
 
 }
-type Props = DispatchProps & ReduxProps & RouteComponentProps;
+interface MatchParams {
+    id: string;
+}
+type MatchProps = RouteComponentProps<MatchParams>;
+type Props = DispatchProps & ReduxProps & MatchProps;
 
 interface State {
     isModify: boolean;
 }
-
-const data = { id: 1, title: '1' };
 
 class TodoDetailsComponent extends React.Component<Props, State> {
     public state = {
@@ -27,6 +31,9 @@ class TodoDetailsComponent extends React.Component<Props, State> {
     };
 
     public render() {
+        const { datas, match } = this.props;
+        const data = datas.find(o => o.id === parseInt(match.params.id));
+        if (undefined === data) return null;
         const { isModify } = this.state;
         return isModify
             ? (<TodoModify item={data} onHandle={this.onModify} />)
@@ -41,7 +48,7 @@ class TodoDetailsComponent extends React.Component<Props, State> {
 
 
 const mapStateProps = (state: RootState): ReduxProps => ({
-
+    datas: getTodos(state),
 });
 
 const mapDispatchProps = (dispatch: Dispatch<TodoAction>) => ({

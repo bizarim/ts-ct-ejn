@@ -9,7 +9,7 @@ import { ServiceType } from '../../../../constants';
 
 export function* todoAddSaga(action: TodoAddReq) {
     try {
-        const rs = yield call(API.get({ service: ServiceType.todo }), '', action.payload);
+        const rs = yield call(API.post({ service: ServiceType.todo }), '/todos', action.payload);
         yield put(todoAddRes(rs));
     } catch (error) {
         yield put(todoAddErr(error));

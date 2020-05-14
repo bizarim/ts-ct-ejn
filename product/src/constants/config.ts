@@ -10,7 +10,9 @@ export interface Config {
 }
 
 export const defaultConfig: Config = {
-    apis: { },
+    apis: {
+        todo: 'http://localhost:8080',
+    },
     withCredentials: false,
     basicToken: '',
 };

@@ -27,24 +27,36 @@ interface TodoModifyProps {
 type Props = DispatchProps & ReduxProps & TodoModifyProps;
 
 interface State {
-
+    modifyItem: TodoData;
 }
+// todo
+const title = '제목';
+const contents = '내용';
+const titlePlaceHolder = '제목을 입력하세요.';
+const contentsPlacHolder = '내용을 입력하세요.';
+const priority = '우선순위';
+const lastDate = '마감기한';
+const complete = '완료여부';
 
 class TodoModifyComponent extends React.Component<Props, State> {
-    public state = {};
+    public state = {
+        modifyItem: JSON.parse(JSON.stringify(this.props.item)) as TodoData,
+    };
 
     public render() {
-        const { item } = this.props;
+        const { modifyItem } = this.state;
         return (
             <div className="modify">
                 <div className="modify__wrap">
-                    <TodoTextInputElement label={'제목'} value={item.title} placeHolder={'제목을 입력하세요.'} onHandle={() => { }} />
-                    <TodoTextareaElement label={'내용'} value={item.title} placeHolder={'내용을 입력하세요.'} onHandle={() => { }} />
-                    <TodoSelectElement label={'내용'} value={ePriority.high.toString()} options={[ePriority.high.toString(), ePriority.middle.toString(), ePriority.low.toString()]} onHandle={() => { }} />
-                    <TodoDateInputElement label={'마감기한'} value={item.title} onHandle={() => { }} />
-                    <TodoSelectElement label={'완료여부'} value={''} options={['진행중', '완료']} onHandle={() => { }} />
+                    <TodoTextInputElement label={title} value={modifyItem.title} placeHolder={titlePlaceHolder} onHandle={this.onChangedTitle} />
+                    <TodoTextareaElement label={contents} value={modifyItem.contents} placeHolder={contentsPlacHolder} onHandle={this.onChangedContents} />
+                    <TodoSelectElement label={priority} value={ePriority[modifyItem.priority as ePriority]}
+                        options={[(ePriority[ePriority.high]).toString(), (ePriority[ePriority.middle]).toString(), (ePriority[ePriority.low]).toString()]}
+                        onHandle={this.onChangedPriority} />
+                    <TodoDateInputElement label={lastDate} value={modifyItem.LastDate} onHandle={this.onChangedLastDate} />
+                    <TodoSelectElement label={complete} value={`${modifyItem.completed}`} options={['false', 'true']} onHandle={this.onChangedComplete} />
                     <div className="modify__wrap__foot">
-                        <button className="btn btn-primary" onClick={this.onModify}> complete </button>
+                        <button className="btn btn-primary" onClick={this.onCompleted}> complete </button>
                     </div>
 
                 </div>
@@ -52,9 +64,51 @@ class TodoModifyComponent extends React.Component<Props, State> {
         );
     }
 
-    private onModify = () => {
-        const { onHandle } = this.props;
+    private onChangedTitle = (text: string) => {
+        const { modifyItem } = this.state;
+        modifyItem.title = text;
+        this.setState({
+            modifyItem: modifyItem,
+        });
+    }
+
+    private onChangedContents = (text: string) => {
+        const { modifyItem } = this.state;
+        modifyItem.contents = text;
+        this.setState({
+            modifyItem: modifyItem,
+        });
+    }
+
+    private onChangedPriority = (text: string) => {
+        const { modifyItem } = this.state;
+        modifyItem.priority = text;
+        this.setState({
+            modifyItem: modifyItem,
+        });
+    }
+
+    private onChangedLastDate = (text: string) => {
+        const { modifyItem } = this.state;
+        modifyItem.LastDate = text;
+        this.setState({
+            modifyItem: modifyItem,
+        });
+    }
+
+    private onChangedComplete = (text: string) => {
+        const { modifyItem } = this.state;
+        modifyItem.completed = 'true' === text;
+        this.setState({
+            modifyItem: modifyItem,
+        });
+    }
+
+    private onCompleted = () => {
+        const { onHandle, todoModifyReq } = this.props;
+        const { modifyItem } = this.state;
         onHandle();
+        todoModifyReq({ data: modifyItem });
     }
 }
 

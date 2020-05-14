@@ -1,17 +1,32 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { TodoAction } from '../../store/modules/todo/actions';
+import { RootState } from '../../store/rootReducer';
 import { TodoAdd } from '../../containers';
 
-interface Props {
+interface ReduxProps {
 
 }
-interface State {
+interface DispatchProps {
 
 }
+type Props = DispatchProps & ReduxProps & RouteComponentProps;
 
-export class TodoAddPage extends React.Component<Props, State> {
-    public state = {};
+class TodoAddComponent extends React.Component<Props> {
 
     public render() {
         return (<TodoAdd />);
     }
 }
+
+const mapStateProps = (state: RootState): ReduxProps => ({
+
+});
+
+const mapDispatchProps = (dispatch: Dispatch<TodoAction>) => ({
+
+});
+
+export const TodoAddPage = withRouter(connect(mapStateProps, mapDispatchProps)(TodoAddComponent));

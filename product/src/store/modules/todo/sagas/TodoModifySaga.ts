@@ -9,7 +9,7 @@ import { ServiceType } from '../../../../constants';
 
 export function* todoModifySaga(action: TodoModifyReq) {
     try {
-        const rs = yield call(API.get({ service: ServiceType.todo }), '', action.payload);
+        const rs = yield call(API.put({ service: ServiceType.todo }), `/todos/${action.payload.data.id}`, action.payload.data);
         yield put(todoModifyRes(rs));
     } catch (error) {
         yield put(todoModifyErr(error));
