@@ -1,7 +1,6 @@
-## 코딩 테스트
-
-### algorithm
-[link](algorithm/README.md)
+# 코딩 테스트
+algorithm:[link](algorithm/README.md)
+product:[link](product/README.md)
 
 ## 알고리즘 프로젝트
 피카추 진화 시키기
@@ -26,8 +25,6 @@ npm test
 npm start
 ```
 
-### product
-[link](product/README.md)
 
 ## 프런트엔드 프로젝트
 todolist 만들기
