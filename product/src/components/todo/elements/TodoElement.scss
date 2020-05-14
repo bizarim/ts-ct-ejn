@@ -13,5 +13,10 @@
         border: 0.05rem solid #ddd;
         padding: 0.25rem 0.55rem;
         border-radius: 4px;
+        
+        span {
+            white-space: nowrap;
+            word-break: break-word;
+        }
     }
 }

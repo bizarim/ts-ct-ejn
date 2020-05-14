@@ -218,6 +218,9 @@
     border: 0.05rem solid #ddd;
     padding: 0.25rem 0.55rem;
     border-radius: 4px; }
+    .todo-element__contents span {
+      white-space: nowrap;
+      word-break: break-word; }
 
 .item {
   border: 0.05rem solid #ddd;
@@ -236,7 +239,9 @@
       border: 0.05rem solid #ddd;
       padding: 0.25rem 0.65rem; }
       .item__wrap__title span {
-        text-align: left; }
+        text-align: left;
+        white-space: pre-wrap;
+        word-break: break-word; }
     .item__wrap__contents {
       display: flex;
       align-items: center;
@@ -246,7 +251,9 @@
       font-size: 0.9rem;
       opacity: 0.8; }
       .item__wrap__contents span {
-        text-align: left; }
+        text-align: left;
+        white-space: pre-wrap;
+        word-break: break-word; }
     .item__wrap__body {
       display: flex;
       align-items: center;
